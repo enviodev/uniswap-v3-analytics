@@ -99,3 +99,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## TODO:
 - [] use numberOfSwaps data point rather than txCount on Factory entity
+- [] pools on click

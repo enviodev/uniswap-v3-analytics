@@ -43,6 +43,7 @@ export function usePools() {
       try {
         setLoading(true);
         const data = await graphqlClient.request<PoolsResponse>(POOLS_QUERY);
+        console.log("data", data);  
         setPools(data);
         setError(null);
         retryCountRef.current = 0; // Reset retry count on success

@@ -46,6 +46,7 @@ const TABS = [
   { id: "tvl", label: "TVL" },
   { id: "pools", label: "Pools" },
   { id: "apis", label: "APIs" },
+  { id: "v4", label: "V4", externalLink: "https://v4.xyz" },
 ];
 
 type FactoryStat = {
@@ -71,6 +72,13 @@ export default function Page() {
 
   // Handle tab changes, with special case for Pulse tab
   const handleTabChange = (tabId: string) => {
+    // Check if the tab has an external link
+    const tab = TABS.find(tab => tab.id === tabId);
+    if (tab?.externalLink) {
+      window.open(tab.externalLink, '_blank');
+      return;
+    }
+
     setActiveTab(tabId);
   };
 
@@ -232,7 +240,7 @@ export default function Page() {
                   </div>
                 </motion.div>
               )}
-              {/* {activeTab === "pools" && (
+              {activeTab === "pools" && (
                 <motion.div
                   key="pools"
                   initial={{ opacity: 0, y: 20 }}
@@ -245,7 +253,7 @@ export default function Page() {
                     <PoolsSummary />
                   </div>
                 </motion.div>
-              )} */}
+              )}
               {activeTab === "apis" && (
                 <motion.div
                   key="apis"
@@ -254,13 +262,6 @@ export default function Page() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="mb-6 flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground bg-secondary/30 rounded-lg">
-                    <AlertCircle className="w-4 h-4" />
-                    <span>
-                      This page is under active development and will be improved
-                      shortly
-                    </span>
-                  </div>
                   <ApisContent />
                 </motion.div>
               )}

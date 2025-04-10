@@ -35,12 +35,11 @@ export const POOLS_QUERY = `
     Pool(order_by: {totalValueLockedUSD: desc}, limit: 100) {
       id      
       txCount
-      token0
-      token1
+      token0_id
+      token1_id
       volumeUSD
       untrackedVolumeUSD
-      feesUSD
-      feesUSDUntracked
+      feesUSD      
       totalValueLockedUSD
     }
   }

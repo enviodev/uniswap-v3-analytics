@@ -50,9 +50,7 @@ export function useStats() {
 
     const fetchData = async () => {
       try {
-        const data = await graphqlClient.request<Stats>(STATS_QUERY);
-        console.log("data");
-        console.log(data);
+        const data = await graphqlClient.request<Stats>(STATS_QUERY);        
         if (mounted) {
           setStats(data);
           setError(null);
