@@ -33,8 +33,8 @@ const NETWORK_NAMES: Record<string, string> = {
 // Helper function to extract chain ID from the new format
 const extractChainId = (id: string): string => {
   // If the ID contains an underscore, extract the part before it
-  if (id.includes("_")) {
-    const chainId = id.split("_")[0];
+  if (id.includes("-")) {
+    const chainId = id.split("-")[0];
     return chainId || id; // Fallback to original id if split fails
   }
   return id;
@@ -190,7 +190,7 @@ export default function Page() {
                   <StatsSummary
                     factoryStats={sortedStats}
                   />
-                  {/* <div className="space-y-3">
+                  <div className="space-y-3">
                     {sortedStats.map((stat) => {
                       const chainId = extractChainId(stat.id);
                       return (
@@ -199,7 +199,7 @@ export default function Page() {
                           label={
                             NETWORK_NAMES[chainId] || `Chain ${stat.id}`
                           }
-                          value={parseInt(stat.numberOfSwaps)}
+                          value={parseInt(stat.txCount)}
                           maxValue={totalSwaps}
                           pools={parseInt(stat.poolCount)}
                           maxPools={totalPools}
@@ -207,10 +207,10 @@ export default function Page() {
                         />
                       );
                     })}
-                  </div> */}
+                  </div>
                 </motion.div>
               )}
-              {/* {activeTab === "tvl" && (
+              {activeTab === "tvl" && (
                 <motion.div
                   key="tvl"
                   initial={{ opacity: 0, y: 20 }}
@@ -244,7 +244,7 @@ export default function Page() {
                   </div>
                 </motion.div>
               )}
-              {activeTab === "pools" && (
+              {/* {activeTab === "pools" && (
                 <motion.div
                   key="pools"
                   initial={{ opacity: 0, y: 20 }}

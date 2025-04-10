@@ -84,7 +84,7 @@ export function TvlSummary({ globalStats, networkStats }: TvlSummaryProps) {
         <div className="text-sm text-muted-foreground">Total TVL</div>
         <motion.div
           ref={tvlRef}
-          className="text-2xl font-mono tabular-nums"
+          className="text-md font-mono tabular-nums"
           animate={{
             color:
               previousValues.current.tvl < globalStats.totalTVL
@@ -101,7 +101,7 @@ export function TvlSummary({ globalStats, networkStats }: TvlSummaryProps) {
         <div className="text-sm text-muted-foreground">Total Volume</div>
         <motion.div
           ref={volumeRef}
-          className="text-2xl font-mono tabular-nums"
+          className="text-md font-mono tabular-nums"
           animate={{
             color:
               previousValues.current.volume < globalStats.totalVolume
@@ -118,7 +118,7 @@ export function TvlSummary({ globalStats, networkStats }: TvlSummaryProps) {
         <div className="text-sm text-muted-foreground">Total Fees</div>
         <motion.div
           ref={feesRef}
-          className="text-2xl font-mono tabular-nums"
+          className="text-md font-mono tabular-nums"
           animate={{
             color:
               previousValues.current.fees < globalStats.totalFees
