@@ -63,8 +63,8 @@ const NETWORK_NAMES: Record<string, string> = {
 // Helper function to extract chain ID from the new format
 const extractChainId = (id: string): string => {
   // If the ID contains an underscore, extract the part before it
-  if (id.includes("_")) {
-    const chainId = id.split("_")[0];
+  if (id.includes("-")) {
+    const chainId = id.split("-")[0];
     return chainId || id; // Fallback to original id if split fails
   }
   return id;
@@ -97,7 +97,9 @@ const RECENT_SWAPS_QUERY = `
       origin
       sender
       timestamp
-      transaction
+      transaction {
+        id
+      }
       token0 {
         id
         name
@@ -111,8 +113,7 @@ const RECENT_SWAPS_QUERY = `
         decimals
       }
       sqrtPriceX96
-      tick
-      chainId
+      tick      
     }
   }
 `;

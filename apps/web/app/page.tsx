@@ -66,7 +66,7 @@ type FactoryStat = {
 };
 
 export default function Page() {
-  const [activeTab, setActiveTab] = useState("pools");
+  const [activeTab, setActiveTab] = useState("pulse");
   const [showAllNetworks, setShowAllNetworks] = useState(false);
   const { stats, error } = useStats();
 
@@ -206,6 +206,36 @@ export default function Page() {
                   </div>
                 </motion.div>
               )}
+              {activeTab === "pulse" && (
+                <motion.div
+                  key="pulse"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Left column: Recent Swaps */}
+                      <div className="rounded-lg border border-border/50 overflow-hidden">
+                        <PulseSwapsColumn />
+                      </div>
+
+                      {/* Right column: Recent Pools */}
+                      {/* <div className="rounded-lg border border-border/50 overflow-hidden">
+                        <PulsePoolsColumn />
+                      </div> */}
+                    </div>
+
+                    <div className="text-center text-xs text-muted-foreground mt-2">
+                      <p>
+                        Recent data from Uniswap V4 pools across all supported
+                        networks
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
               {activeTab === "tvl" && (
                 <motion.div
                   key="tvl"
@@ -265,36 +295,6 @@ export default function Page() {
                   <ApisContent />
                 </motion.div>
               )}
-              {/* {activeTab === "pulse" && (
-                <motion.div
-                  key="pulse"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Left column: Recent Swaps */}
-              {/* <div className="rounded-lg border border-border/50 overflow-hidden">
-                        <PulseSwapsColumn />
-                      </div>
-
-                      {/* Right column: Recent Pools */}
-              {/* <div className="rounded-lg border border-border/50 overflow-hidden">
-                        <PulsePoolsColumn />
-                      </div>
-                    </div>
-
-                    <div className="text-center text-xs text-muted-foreground mt-2">
-                      <p>
-                        Recent data from Uniswap V4 pools across all supported
-                        networks
-                      </p>
-                    </div>
-                  </div> */}
-              {/* </motion.div> */}
-              {/* )} */}
             </AnimatePresence>
           </TabsContainer>
         </div>
