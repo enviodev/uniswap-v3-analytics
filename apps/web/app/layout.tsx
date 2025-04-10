@@ -16,9 +16,9 @@ const fontMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "v4 | Uniswap Data",
+  title: "v3 | Uniswap Data",
   description:
-    "Real-time analytics for Uniswap v4 swaps across different chains",
+    "Real-time analytics for Uniswap v3 swaps across different chains",
   icons: {
     icon: "/favicon.svg",
   },

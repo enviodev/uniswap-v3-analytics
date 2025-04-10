@@ -66,7 +66,7 @@ export const LogoHeader = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 relative z-10">
-              v4
+              v3
             </h1>
           </motion.div>
         </div>
@@ -79,7 +79,7 @@ export const LogoHeader = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            The hub for Uniswap data and hooks
+            The hub for Uniswap v3 data
           </motion.div>
           <motion.div
             className="flex items-center gap-1.5 text-xs text-muted-foreground/80 flex-wrap justify-center sm:justify-start"

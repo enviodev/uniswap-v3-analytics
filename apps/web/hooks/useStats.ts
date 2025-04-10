@@ -1,18 +1,24 @@
 import { useEffect, useState, useRef } from "react";
 import { graphqlClient, STATS_QUERY } from "@/lib/graphql";
 
-type PoolManagerStat = {
-  id: string;
-  chainId: string;
-  poolCount: string;
+type FactoryStat = {
   txCount: string;
-  numberOfSwaps: string;
-  hookedPools: string;
-  hookedSwaps: string;
+  poolCount: string;
+  id: string;
+  owner: string;
+  totalFeesETH: string;
+  totalFeesUSD: string;
+  totalValueLockedETH: string;
+  totalValueLockedETHUntracked: string;
+  totalValueLockedUSD: string;
+  totalValueLockedUSDUntracked: string;
+  totalVolumeETH: string;
+  totalVolumeUSD: string;
+  untrackedVolumeUSD: string;
 };
 
 interface Stats {
-  PoolManager: PoolManagerStat[];
+  Factory: FactoryStat[];
   chain_metadata: {
     chain_id: number;
     latest_processed_block: number;
@@ -45,6 +51,8 @@ export function useStats() {
     const fetchData = async () => {
       try {
         const data = await graphqlClient.request<Stats>(STATS_QUERY);
+        console.log("data");
+        console.log(data);
         if (mounted) {
           setStats(data);
           setError(null);
@@ -55,6 +63,7 @@ export function useStats() {
           timeoutIdRef.current = setTimeout(fetchData, 1000);
         }
       } catch (err) {
+        console.log(err);
         const isRateLimit = err?.toString().includes("429");
 
         if (isRateLimit && retryCount < MAX_RETRIES) {
@@ -79,7 +88,7 @@ export function useStats() {
               setError(
                 isRateLimit
                   ? "Rate limit exceeded. Please try again later."
-                  : "Failed to fetch data. Please refresh the page."
+                  : "Failed to fetch data. Please refresh the page here."
               );
             }
 

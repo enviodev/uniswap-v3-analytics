@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useStats } from "@/hooks/useStats";
 import { AnimatedBar } from "@/components/AnimatedBar";
-import { StatsSummary } from "@/components/StatsSummary";
+import StatsSummary from "@/components/StatsSummary";
 import { TabsContainer } from "@/components/TabsContainer";
 import { ChevronDown, ChevronUp, AlertCircle, Github } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,17 +48,20 @@ const TABS = [
   { id: "apis", label: "APIs" },
 ];
 
-type PoolManagerStat = {
-  id: string;
-  chainId: string;
-  poolCount: string;
+type FactoryStat = {
   txCount: string;
-  numberOfSwaps: string;
-  hookedPools: string;
-  hookedSwaps: string;
-  totalValueLockedUSD?: string;
-  totalVolumeUSD?: string;
-  totalFeesUSD?: string;
+  poolCount: string;
+  id: string;
+  owner: string;
+  totalFeesETH: string;
+  totalFeesUSD: string;
+  totalValueLockedETH: string;
+  totalValueLockedETHUntracked: string;
+  totalValueLockedUSD: string;
+  totalValueLockedUSDUntracked: string;
+  totalVolumeETH: string;
+  totalVolumeUSD: string;
+  untrackedVolumeUSD: string;
 };
 
 export default function Page() {
@@ -94,12 +97,12 @@ export default function Page() {
     );
   }
 
-  const sortedStats = [...stats.PoolManager].sort(
-    (a, b) => parseInt(b.numberOfSwaps) - parseInt(a.numberOfSwaps)
-  ) as PoolManagerStat[];
+  const sortedStats = [...stats.Factory].sort(
+    (a, b) => parseInt(b.txCount) - parseInt(a.txCount)
+  ) as FactoryStat[];
 
   const totalSwaps = sortedStats.reduce(
-    (acc, stat) => acc + parseInt(stat.numberOfSwaps),
+    (acc, stat) => acc + parseInt(stat.txCount),
     0
   );
   const totalPools = sortedStats.reduce(
@@ -118,11 +121,11 @@ export default function Page() {
     return {
       id: stat.id,
       name: NETWORK_NAMES[chainId] || `Chain ${stat.id}`,
-      swaps: parseInt(stat.numberOfSwaps),
+      swaps: parseInt(stat.txCount),
       pools: parseInt(stat.poolCount),
       avgSwapsPerPool:
         parseInt(stat.poolCount) > 0
-          ? parseInt(stat.numberOfSwaps) / parseInt(stat.poolCount)
+          ? parseInt(stat.txCount) / parseInt(stat.poolCount)
           : 0,
     };
   });
@@ -185,10 +188,9 @@ export default function Page() {
                   </div>
 
                   <StatsSummary
-                    globalStats={globalStats}
-                    networkStats={networkStats}
+                    factoryStats={sortedStats}
                   />
-                  <div className="space-y-3">
+                  {/* <div className="space-y-3">
                     {sortedStats.map((stat) => {
                       const chainId = extractChainId(stat.id);
                       return (
@@ -205,10 +207,10 @@ export default function Page() {
                         />
                       );
                     })}
-                  </div>
+                  </div> */}
                 </motion.div>
               )}
-              {activeTab === "tvl" && (
+              {/* {activeTab === "tvl" && (
                 <motion.div
                   key="tvl"
                   initial={{ opacity: 0, y: 20 }}
@@ -273,8 +275,8 @@ export default function Page() {
                   </div>
                   <ApisContent />
                 </motion.div>
-              )}
-              {activeTab === "pulse" && (
+              )} */}
+              {/* {activeTab === "pulse" && (
                 <motion.div
                   key="pulse"
                   initial={{ opacity: 0, y: 20 }}
@@ -285,12 +287,12 @@ export default function Page() {
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Left column: Recent Swaps */}
-                      <div className="rounded-lg border border-border/50 overflow-hidden">
+              {/* <div className="rounded-lg border border-border/50 overflow-hidden">
                         <PulseSwapsColumn />
                       </div>
 
                       {/* Right column: Recent Pools */}
-                      <div className="rounded-lg border border-border/50 overflow-hidden">
+              {/* <div className="rounded-lg border border-border/50 overflow-hidden">
                         <PulsePoolsColumn />
                       </div>
                     </div>
@@ -301,9 +303,9 @@ export default function Page() {
                         networks
                       </p>
                     </div>
-                  </div>
-                </motion.div>
-              )}
+                  </div> */}
+              {/* </motion.div> */}
+              {/* )} */}
             </AnimatePresence>
           </TabsContainer>
         </div>

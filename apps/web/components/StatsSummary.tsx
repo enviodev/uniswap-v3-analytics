@@ -2,23 +2,29 @@ import { motion, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { RecentSwapsPopup } from "./RecentSwapsPopup";
 import { RecentPoolsPopup } from "./RecentPoolsPopup";
+import React from 'react';
+
+type FactoryStat = {
+  txCount: string;
+  poolCount: string;
+  id: string;
+  owner: string;
+  totalFeesETH: string;
+  totalFeesUSD: string;
+  totalValueLockedETH: string;
+  totalValueLockedETHUntracked: string;
+  totalValueLockedUSD: string;
+  totalValueLockedUSDUntracked: string;
+  totalVolumeETH: string;
+  totalVolumeUSD: string;
+  untrackedVolumeUSD: string;
+};
 
 interface StatsSummaryProps {
-  globalStats: {
-    totalSwaps: number;
-    totalPools: number;
-    avgSwapsPerPool: number;
-  };
-  networkStats: {
-    id: string;
-    name: string;
-    swaps: number;
-    pools: number;
-    avgSwapsPerPool: number;
-  }[];
+  factoryStats: FactoryStat[];
 }
 
-export function StatsSummary({ globalStats, networkStats }: StatsSummaryProps) {
+const StatsSummary: React.FC<StatsSummaryProps> = ({ factoryStats }) => {
   const swapsRef = useRef<HTMLDivElement>(null);
   const poolsRef = useRef<HTMLDivElement>(null);
   const avgRef = useRef<HTMLDivElement>(null);
@@ -26,9 +32,9 @@ export function StatsSummary({ globalStats, networkStats }: StatsSummaryProps) {
   const [showPoolsPopup, setShowPoolsPopup] = useState(false);
 
   const previousValues = useRef({
-    swaps: globalStats.totalSwaps,
-    pools: globalStats.totalPools,
-    avg: globalStats.avgSwapsPerPool,
+    swaps: 0,
+    pools: 0,
+    avg: 0,
   });
 
   useEffect(() => {
@@ -53,35 +59,39 @@ export function StatsSummary({ globalStats, networkStats }: StatsSummaryProps) {
       return controls.stop;
     };
 
+    const totalPools = factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0);
+    const totalSwaps = factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0);
+    const avgSwapsPerPool = totalPools > 0 ? totalSwaps / totalPools : 0;
+
     const cleanups = [
       animateValue(
         swapsRef,
         previousValues.current.swaps,
-        globalStats.totalSwaps,
+        totalSwaps,
         (v) => Math.round(v).toLocaleString()
       ),
       animateValue(
         poolsRef,
         previousValues.current.pools,
-        globalStats.totalPools,
+        totalPools,
         (v) => Math.round(v).toLocaleString()
       ),
       animateValue(
         avgRef,
         previousValues.current.avg,
-        globalStats.avgSwapsPerPool,
+        avgSwapsPerPool,
         (v) => v.toFixed(1)
       ),
     ];
 
     previousValues.current = {
-      swaps: globalStats.totalSwaps,
-      pools: globalStats.totalPools,
-      avg: globalStats.avgSwapsPerPool,
+      swaps: totalSwaps,
+      pools: totalPools,
+      avg: avgSwapsPerPool,
     };
 
     return () => cleanups.forEach((cleanup) => cleanup?.());
-  }, [globalStats]);
+  }, [factoryStats]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -99,13 +109,13 @@ export function StatsSummary({ globalStats, networkStats }: StatsSummaryProps) {
           className="text-2xl font-mono tabular-nums"
           animate={{
             color:
-              previousValues.current.swaps < globalStats.totalSwaps
+              previousValues.current.swaps < factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0)
                 ? ["inherit", "hsl(142.1 76.2% 36.3%)", "inherit"]
                 : "inherit",
           }}
           transition={{ duration: 0.3 }}
         >
-          {globalStats.totalSwaps.toLocaleString()}
+          {factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0).toLocaleString()}
         </motion.div>
 
         <AnimatePresence>
@@ -127,17 +137,17 @@ export function StatsSummary({ globalStats, networkStats }: StatsSummaryProps) {
           className="text-2xl font-mono tabular-nums"
           animate={{
             scale:
-              previousValues.current.pools < globalStats.totalPools
+              previousValues.current.pools < factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0)
                 ? [1, 1.06, 1]
                 : 1,
             color:
-              previousValues.current.pools < globalStats.totalPools
+              previousValues.current.pools < factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0)
                 ? ["inherit", "hsl(142.1 76.2% 36.3%)", "inherit"]
                 : "inherit",
           }}
           transition={{ duration: 0.3 }}
         >
-          {globalStats.totalPools.toLocaleString()}
+          {factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0).toLocaleString()}
         </motion.div>
 
         <AnimatePresence>
@@ -152,15 +162,19 @@ export function StatsSummary({ globalStats, networkStats }: StatsSummaryProps) {
           className="text-2xl font-mono tabular-nums"
           animate={{
             color:
-              previousValues.current.avg < globalStats.avgSwapsPerPool
+              previousValues.current.avg < (factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0) /
+                (factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0) || 1))
                 ? ["inherit", "hsl(142.1 76.2% 36.3%)", "inherit"]
                 : "inherit",
           }}
           transition={{ duration: 0.3 }}
         >
-          {globalStats.avgSwapsPerPool.toFixed(1)}
+          {(factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0) /
+            (factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0) || 1)).toFixed(1)}
         </motion.div>
       </div>
     </div>
   );
-}
+};
+
+export default StatsSummary;

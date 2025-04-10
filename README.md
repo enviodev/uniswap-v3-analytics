@@ -96,3 +96,6 @@ The application uses a monorepo structure with pnpm workspaces. The main applica
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## TODO:
+- [] use numberOfSwaps data point rather than txCount on Factory entity

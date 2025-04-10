@@ -1,21 +1,27 @@
 import { GraphQLClient } from "graphql-request";
 
-// Use the local API route instead of the direct GraphQL endpoint
-// export const graphqlClient = new GraphQLClient("/api/graphql");
-export const graphqlClient = new GraphQLClient("https://enviodev-69b6884.dedicated.hyperindex.xyz/v1/graphql");
-// export const graphqlClient = new GraphQLClient("https://indexer.dev.hyperindex.xyz/961a314/v1/graphql");
+// Comment out the v4 API endpoint
+// export const graphqlClient = new GraphQLClient("https://enviodev-69b6884.dedicated.hyperindex.xyz/v1/graphql");
+
+// Uncomment the v3 API endpoint
+export const graphqlClient = new GraphQLClient("https://indexer.dev.hyperindex.xyz/961a314/v1/graphql");
 
 export const STATS_QUERY = `
   query myQuery {
-    PoolManager {
-      id
-      chainId
+    Factory {
+      txCount 
       poolCount
-      txCount
-      numberOfSwaps
-      totalValueLockedUSD
-      totalVolumeUSD
+      id
+      owner
+      totalFeesETH
       totalFeesUSD
+      totalValueLockedETH
+      totalValueLockedETHUntracked
+      totalValueLockedUSD
+      totalValueLockedUSDUntracked
+      totalVolumeETH
+      totalVolumeUSD
+      untrackedVolumeUSD
     }
     chain_metadata {
       chain_id
