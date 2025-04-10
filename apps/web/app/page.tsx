@@ -175,18 +175,6 @@ export default function Page() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="flex justify-end mb-6">
-                    <button
-                      className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-secondary/30 hover:bg-secondary/50 transition-colors text-xs font-medium"
-                    >
-                      <span
-                        className="text-primary"
-                      >
-                        Swaps
-                      </span>
-                    </button>
-                  </div>
-
                   <StatsSummary
                     factoryStats={sortedStats}
                   />
@@ -257,7 +245,7 @@ export default function Page() {
                     <PoolsSummary />
                   </div>
                 </motion.div>
-              )}
+              )} */}
               {activeTab === "apis" && (
                 <motion.div
                   key="apis"
@@ -275,7 +263,7 @@ export default function Page() {
                   </div>
                   <ApisContent />
                 </motion.div>
-              )} */}
+              )}
               {/* {activeTab === "pulse" && (
                 <motion.div
                   key="pulse"

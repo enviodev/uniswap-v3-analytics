@@ -20,7 +20,7 @@ export function ApisContent() {
         </div>
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com/enviodev/uniswap-v4-indexer"
+            href="https://github.com/enviodev/uniswap-v3-indexer"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -28,25 +28,13 @@ export function ApisContent() {
             <Github className="w-5 h-5" />
           </a>
           <a
-            href="https://envio.dev/app/enviodev/uniswap-v4-indexer"
+            href="https://envio.dev/app/denhampreen/uniswap-v3-indexer"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary/70 hover:text-primary transition-colors text-sm font-medium"
           >
             View Indexer →
           </a>
-        </div>
-      </div>
-      <div className="mt-8 space-y-4">
-        <h3 className="text-lg font-medium">How to Access This Data?</h3>
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/50">
-          <iframe
-            src="https://www.youtube.com/embed/NJv8IX_ebWE"
-            title="How to Access Data"
-            className="absolute inset-0 h-full w-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
         </div>
       </div>
       <div className="prose prose-sm max-w-none prose-gray dark:prose-invert">
@@ -72,12 +60,12 @@ export function ApisContent() {
           . This provides powerful querying capabilities through a GraphQL
           endpoint. The{" "}
           <a
-            href="https://github.com/enviodev/uniswap-v4-indexer"
+            href="https://github.com/denhampreen/uniswap-v3-indexer"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary/70 hover:text-primary transition-colors"
           >
-            uniswap-v4-indexer
+            uniswap-v3-indexer
           </a>{" "}
           is open source, and we encourage contributions to enhance the
           available data points and querying capabilities.
