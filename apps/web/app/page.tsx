@@ -66,7 +66,7 @@ type FactoryStat = {
 };
 
 export default function Page() {
-  const [activeTab, setActiveTab] = useState("pulse");
+  const [activeTab, setActiveTab] = useState("overview");
   const [showAllNetworks, setShowAllNetworks] = useState(false);
   const { stats, error } = useStats();
 
