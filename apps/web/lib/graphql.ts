@@ -1,7 +1,9 @@
 import { GraphQLClient } from "graphql-request";
 
 // Use the local API route instead of the direct GraphQL endpoint
-export const graphqlClient = new GraphQLClient("/api/graphql");
+// export const graphqlClient = new GraphQLClient("/api/graphql");
+export const graphqlClient = new GraphQLClient("https://enviodev-69b6884.dedicated.hyperindex.xyz/v1/graphql");
+// export const graphqlClient = new GraphQLClient("https://indexer.dev.hyperindex.xyz/961a314/v1/graphql");
 
 export const STATS_QUERY = `
   query myQuery {
@@ -11,18 +13,6 @@ export const STATS_QUERY = `
       poolCount
       txCount
       numberOfSwaps
-      hookedPools
-      hookedSwaps
-      totalValueLockedUSD
-      totalVolumeUSD
-      totalFeesUSD
-    }
-    HookStats {
-      id
-      chainId
-      numberOfPools
-      numberOfSwaps
-      firstPoolCreatedAt
       totalValueLockedUSD
       totalVolumeUSD
       totalFeesUSD
@@ -37,10 +27,7 @@ export const STATS_QUERY = `
 export const POOLS_QUERY = `
   query myQuery {
     Pool(order_by: {totalValueLockedUSD: desc}, limit: 100) {
-      chainId
-      hooks
-      id
-      name
+      id      
       txCount
       token0
       token1

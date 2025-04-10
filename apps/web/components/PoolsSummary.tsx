@@ -217,7 +217,7 @@ export function PoolsSummary({ onNavigateToHookInfo }: PoolsSummaryProps) {
               </thead>
               <tbody className="divide-y divide-border/50">
                 {displayedPools.map((pool) => {
-                  const chainId = extractChainId(pool.chainId);
+                  const chainId = extractChainId(pool.id);
                   const poolAddress = extractPoolAddress(pool.id);
                   const hookAddress = extractHookAddress(pool.hooks);
                   const explorerUrl =
