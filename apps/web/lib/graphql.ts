@@ -4,7 +4,7 @@ import { GraphQLClient } from "graphql-request";
 // export const graphqlClient = new GraphQLClient("https://enviodev-69b6884.dedicated.hyperindex.xyz/v1/graphql");
 
 // Uncomment the v3 API endpoint
-export const graphqlClient = new GraphQLClient("https://indexer.dev.hyperindex.xyz/961a314/v1/graphql");
+export const graphqlClient = new GraphQLClient("https://denhampreen-6f4a4e9.dedicated.hyperindex.xyz/v1/graphql");
 
 export const STATS_QUERY = `
   query myQuery {
