@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { graphqlClient, STATS_QUERY } from "@/lib/graphql";
 
 type FactoryStat = {
-  txCount: string;
+  numberOfSwaps: string;
   poolCount: string;
   id: string;
   owner: string;

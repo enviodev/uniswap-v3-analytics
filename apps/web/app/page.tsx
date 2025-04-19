@@ -50,7 +50,7 @@ const TABS = [
 ];
 
 type FactoryStat = {
-  txCount: string;
+  numberOfSwaps: string;
   poolCount: string;
   id: string;
   owner: string;
@@ -106,11 +106,11 @@ export default function Page() {
   }
 
   const sortedStats = [...stats.Factory].sort(
-    (a, b) => parseInt(b.txCount) - parseInt(a.txCount)
+    (a, b) => parseInt(b.numberOfSwaps) - parseInt(a.numberOfSwaps)
   ) as FactoryStat[];
 
   const totalSwaps = sortedStats.reduce(
-    (acc, stat) => acc + parseInt(stat.txCount),
+    (acc, stat) => acc + parseInt(stat.numberOfSwaps),
     0
   );
   const totalPools = sortedStats.reduce(
@@ -129,11 +129,11 @@ export default function Page() {
     return {
       id: stat.id,
       name: NETWORK_NAMES[chainId] || `Chain ${stat.id}`,
-      swaps: parseInt(stat.txCount),
+      swaps: parseInt(stat.numberOfSwaps),
       pools: parseInt(stat.poolCount),
       avgSwapsPerPool:
         parseInt(stat.poolCount) > 0
-          ? parseInt(stat.txCount) / parseInt(stat.poolCount)
+          ? parseInt(stat.numberOfSwaps) / parseInt(stat.poolCount)
           : 0,
     };
   });
@@ -195,7 +195,7 @@ export default function Page() {
                           label={
                             NETWORK_NAMES[chainId] || `Chain ${stat.id}`
                           }
-                          value={parseInt(stat.txCount)}
+                          value={parseInt(stat.numberOfSwaps)}
                           maxValue={totalSwaps}
                           pools={parseInt(stat.poolCount)}
                           maxPools={totalPools}

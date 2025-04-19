@@ -8,8 +8,8 @@ export const graphqlClient = new GraphQLClient("https://denhampreen-6f4a4e9.dedi
 
 export const STATS_QUERY = `
   query myQuery {
-    Factory {
-      txCount 
+    Factory {      
+      numberOfSwaps
       poolCount
       id
       owner

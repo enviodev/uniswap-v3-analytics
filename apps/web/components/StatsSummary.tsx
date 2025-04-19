@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import React from 'react';
 
 type FactoryStat = {
-  txCount: string;
+  numberOfSwaps: string;
   poolCount: string;
   id: string;
   owner: string;
@@ -56,7 +56,7 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({ factoryStats }) => {
     };
 
     const totalPools = factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0);
-    const totalSwaps = factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0);
+    const totalSwaps = factoryStats.reduce((total, stat) => total + parseInt(stat.numberOfSwaps), 0);
     const avgSwapsPerPool = totalPools > 0 ? totalSwaps / totalPools : 0;
 
     const cleanups = [
@@ -102,13 +102,13 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({ factoryStats }) => {
           className="text-2xl font-mono tabular-nums"
           animate={{
             color:
-              previousValues.current.swaps < factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0)
+              previousValues.current.swaps < factoryStats.reduce((total, stat) => total + parseInt(stat.numberOfSwaps), 0)
                 ? ["inherit", "hsl(142.1 76.2% 36.3%)", "inherit"]
                 : "inherit",
           }}
           transition={{ duration: 0.3 }}
         >
-          {factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0).toLocaleString()}
+          {factoryStats.reduce((total, stat) => total + parseInt(stat.numberOfSwaps), 0).toLocaleString()}
         </motion.div>
       </div>
 
@@ -144,14 +144,14 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({ factoryStats }) => {
           className="text-2xl font-mono tabular-nums"
           animate={{
             color:
-              previousValues.current.avg < (factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0) /
+              previousValues.current.avg < (factoryStats.reduce((total, stat) => total + parseInt(stat.numberOfSwaps), 0) /
                 (factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0) || 1))
                 ? ["inherit", "hsl(142.1 76.2% 36.3%)", "inherit"]
                 : "inherit",
           }}
           transition={{ duration: 0.3 }}
         >
-          {(factoryStats.reduce((total, stat) => total + parseInt(stat.txCount), 0) /
+          {(factoryStats.reduce((total, stat) => total + parseInt(stat.numberOfSwaps), 0) /
             (factoryStats.reduce((total, stat) => total + parseInt(stat.poolCount), 0) || 1)).toFixed(1)}
         </motion.div>
       </div>
